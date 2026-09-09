@@ -59,10 +59,9 @@ body > input.day-switch{ display:none; }
 .photo-credit{
   font-family:'JetBrains Mono',monospace;
   font-size:10.5px;
-  color:rgba(238,243,248,0.55);
-  margin-top:22px;
+  color:var(--ink-soft);
 }
-.photo-credit a{color:rgba(238,243,248,0.7);}
+.photo-credit a{color:var(--ink-soft); text-decoration:underline;}
 .hero-eyebrow{
   font-family:'JetBrains Mono',monospace;
   font-size:13px;
@@ -213,8 +212,8 @@ main{max-width:760px; margin:0 auto; padding:36px 20px 20px;}
 .tag-frei{background:var(--amber-deep);}
 
 .stop p{margin:0; color:var(--ink-soft); font-size:14.5px; max-width:58ch;}
-.stop p a, .ticket p a, .stop h3 a, .ticket h4 a{color:var(--navy); font-weight:600; text-decoration:underline; text-decoration-color:var(--amber); text-underline-offset:2px;}
-.stop p a:hover, .ticket p a:hover, .stop h3 a:hover, .ticket h4 a:hover{color:var(--amber-deep);}
+.stop p a, .ticket p a, .stop h3 a, .ticket h4 a, .ticket ul a{color:var(--navy); font-weight:600; text-decoration:underline; text-decoration-color:var(--amber); text-underline-offset:2px;}
+.stop p a:hover, .ticket p a:hover, .stop h3 a:hover, .ticket h4 a:hover, .ticket ul a:hover{color:var(--amber-deep);}
 
 /* highlighted stop: hotel / restaurant / activity */
 .stop.feature{
@@ -388,7 +387,6 @@ footer .signoff{
     <div class="route-strip">
       <b>Duisburg Hbf</b><span class="sep">→</span><b>Berlin Hbf</b><span class="sep">·</span>ICE 845<span class="sep">·</span>Fr 08:08–12:12<span class="sep">·</span>18.–20.09.2026
     </div>
-    <p class="photo-credit">Foto: Berlin-Mitte, Arild Vågen · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, Wikimedia Commons</p>
   </div>
 </header>
 
@@ -459,7 +457,7 @@ footer .signoff{
 
       <div class="stop feature">
         <span class="time">15:15</span>
-        <div class="head"><h3>Mythos Tempelhof</h3><span class="tag tag-frei">Führung · 2 Std</span></div>
+        <div class="head"><h3><a href="https://www.thf-berlin.de/ihr-besuch/fuehrungen/mythos-tempelhof" target="_blank" rel="noopener">Mythos Tempelhof</a></h3><span class="tag tag-frei">Führung · 2 Std</span></div>
         <p>Der denkmalgeschützte Flughafen Tempelhof beeindruckt durch seine monumentale Architektur und spiegelt die wechselvolle Geschichte Berlins wider. Der Rundgang führt von der ehemaligen Abfertigungshalle über die von den US-Amerikanern genutzten Bereiche bis zu den Transitgängen mit Blick auf das heutige Tempelhofer Feld — Europas größtes Baudenkmal.</p>
       </div>
 
@@ -492,7 +490,7 @@ footer .signoff{
         </div>
         <div class="ticket">
           <div class="opt-no">OPTION 3</div>
-          <h4>KaDeWe, 6. Etage</h4>
+          <h4><a href="https://www.kadewe.de/" target="_blank" rel="noopener">KaDeWe, 6. Etage</a></h4>
           <p>1 Haltestelle vor dem Zoo oder 10 Gehminuten zu Fuß über den Ku'damm. Zugang an der linken Seite. „Die Sechste" — ein Schlaraffenland für Feinschmecker.</p>
         </div>
       </div>
@@ -523,7 +521,7 @@ footer .signoff{
     <div class="timeline">
       <div class="stop">
         <span class="time">10:00</span>
-        <div class="head"><h3>Treffpunkt vor Hotel · Besuch Bundestag</h3></div>
+        <div class="head"><h3>Treffpunkt vor Hotel · Besuch <a href="https://www.bundestag.de/besuche" target="_blank" rel="noopener">Bundestag</a></h3></div>
         <p>S-Bahn-Haltestelle Zoologischer Garten, Linie 100 bis Reichstag.</p>
       </div>
 
@@ -547,14 +545,14 @@ footer .signoff{
 
       <div class="stop">
         <span class="time">13:15</span>
-        <div class="head"><h3>Pause im Maximilians</h3></div>
+        <div class="head"><h3>Pause im <a href="https://www.maximilians-berlin.de/" target="_blank" rel="noopener">Maximilians</a></h3></div>
         <p>Friedrichstraße 185.</p>
       </div>
 
       <div class="stop feature">
         <span class="time">14:15</span>
         <div class="head"><h3>2. Hälfte Stadtrundgang</h3><span class="tag tag-frei">45 Min</span></div>
-        <p>Bahnhof Friedrichstraße (zentraler Verkehrsknotenpunkt), Tränenpalast (ehemalige Westhalle der Grenzabfertigung), Checkpoint Charlie, Friedrichstadt-Palast. Vorbei an der Ausstellung „The Wall" über die Zimmerstraße zur Dauerausstellung <b>Topografie des Terrors</b> — mit Geländerundgang entlang der freigelegten Kellermauerreste. Wer die Ausstellung kennt, kann alternativ mit dem Fesselballon auf 150 m Höhe schweben (bis 20 Personen, 15 Min Panorama-Blick).</p>
+        <p>Bahnhof Friedrichstraße (zentraler Verkehrsknotenpunkt), Tränenpalast (ehemalige Westhalle der Grenzabfertigung), Checkpoint Charlie, Friedrichstadt-Palast. Vorbei an der Ausstellung „The Wall" über die Zimmerstraße zur Dauerausstellung <a href="https://www.topographie.de/" target="_blank" rel="noopener"><b>Topografie des Terrors</b></a> — mit Geländerundgang entlang der freigelegten Kellermauerreste. Wer die Ausstellung kennt, kann alternativ mit dem <a href="https://air-service-berlin.de/" target="_blank" rel="noopener">Fesselballon</a> auf 150 m Höhe schweben (bis 20 Personen, 15 Min Panorama-Blick).</p>
       </div>
 
       <div class="stop">
@@ -565,7 +563,7 @@ footer .signoff{
 
       <div class="stop feature">
         <span class="time">15:30</span>
-        <div class="head"><h3>Führung Neue Nationalgalerie</h3></div>
+        <div class="head"><h3><a href="https://www.smb.museum/museen-einrichtungen/neue-nationalgalerie/" target="_blank" rel="noopener">Führung Neue Nationalgalerie</a></h3></div>
       </div>
 
       <div class="stop">
@@ -587,18 +585,18 @@ footer .signoff{
         <div class="ticket muted">
           <div class="opt-no">OPTION 2 · nicht zu empfehlen</div>
           <h4>Potsdamer Platz</h4>
-          <p>Berlins Touristenzentrum: Fast Food, Café The Barn, Paulaner Biergarten, bei Regen das Linden Bräu im Sony-Center. Alternativ: schnellster Aufzug Europas zum Panorama-Café in der 24. Etage, oder das Holocaust-Mahnmal mit 2.711 Beton-Stelen (kostenfreie Ausstellung).</p>
+          <p>Berlins Touristenzentrum: Fast Food, Café The Barn, Paulaner Biergarten, bei Regen das <a href="https://www.bier-genuss.berlin/en/lindenbraeu-at-the-potsdamer-square/german-restaurant-and-bar/" target="_blank" rel="noopener">Linden Bräu</a> im Sony-Center. Alternativ: schnellster Aufzug Europas zum <a href="https://panoramapunkt.de/" target="_blank" rel="noopener">Panorama-Café</a> in der 24. Etage, oder das <a href="https://www.stiftung-denkmal.de/" target="_blank" rel="noopener">Holocaust-Mahnmal</a> mit 2.711 Beton-Stelen (kostenfreie Ausstellung).</p>
         </div>
         <div class="ticket">
           <div class="opt-no">OPTION 3</div>
           <h4>Gendarmenmarkt</h4>
           <div class="route">16:48 ab Potsdamer Platz · U2 Pankow, Gleis 2, Eingang C<br>bis Berlin Mitte, 2 Stationen · 350 m Fußweg, ca. 5 Min</div>
           <p style="margin-top:8px;">Ca. 150 Min frei am Gendarmenmarkt:</p>
-          <ul><li>Weinbar „glasweise Wein"</li><li>Rausch Schokoladenhaus, Hugo + Notte Café</li><li>Bell Boy Cocktailbar</li><li>Augustiner Brauhaus</li></ul>
+          <ul><li><a href="https://www.glasweiseweinbar.de/" target="_blank" rel="noopener">Weinbar „glasweise Wein"</a></li><li><a href="https://rausch.de/gendarmenmarkt" target="_blank" rel="noopener">Rausch Schokoladenhaus</a>, Hugo + Notte Café</li><li><a href="https://www.visitberlin.de/de/bellboy-berlin" target="_blank" rel="noopener">Bell Boy Cocktailbar</a></li><li>Augustiner Brauhaus</li></ul>
         </div>
         <div class="ticket">
           <div class="opt-no">OPTION 4</div>
-          <h4>Museumsinsel</h4>
+          <h4><a href="https://www.smb.museum/museen-einrichtungen/museumsinsel-berlin/besuch-planen/" target="_blank" rel="noopener">Museumsinsel</a></h4>
           <div class="route">16:48 ab Potsdamer Platz · Bus M200 bis Fischerinsel (an 16:59)<br>7 Min zu Fuß zur Museumsinsel</div>
           <p style="margin-top:8px;">Ca. 120 Min frei. Rückkehr zu Fuß zum Gendarmenmarkt, ca. 20 Gehminuten.</p>
         </div>
@@ -646,7 +644,7 @@ footer .signoff{
 
       <div class="stop feature">
         <span class="time">11:00</span>
-        <div class="head"><h3>Besichtigung Humboldtforum</h3><span class="tag tag-frei">1 Std</span></div>
+        <div class="head"><h3>Besichtigung <a href="https://www.humboldtforum.org/" target="_blank" rel="noopener">Humboldtforum</a></h3><span class="tag tag-frei">1 Std</span></div>
         <p>Mehr als ein Museum.</p>
       </div>
 
@@ -690,6 +688,7 @@ footer .signoff{
 <footer>
   <div>Ende OT-Tour 2026</div>
   <div class="signoff">Euer Wolfram</div>
+  <p class="photo-credit" style="margin-top:18px;">Titelfoto: Berlin-Mitte, Arild Vågen · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, Wikimedia Commons</p>
 </footer>
 
 </body>
