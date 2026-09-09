@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OT-Tour Berlin · 18.–20.09.2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+:root{
+  --navy:#0f2038;
+  --navy-2:#16304f;
+  --amber:#ffb100;
+  --amber-deep:#d98d00;
+  --paper:#f2f4f3;
+  --card:#ffffff;
+  --ink:#0f2038;
+  --ink-soft:#4c5c72;
+  --line:#d7dee2;
+  --db-red:#e2001a;
+  --sbahn-green:#00804d;
+  --ubahn-violet:#7a4fa3;
+  --bus-plum:#8a3b5c;
+  --walk-grey:#7d8894;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'IBM Plex Sans',sans-serif;
+  line-height:1.55;
+}
+
+/* ---------- radio-driven tabs (no JS) ---------- */
+body > input.day-switch{ display:none; }
+
+/* ---------- hero ---------- */
+.hero{
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(255,177,0,0.12), transparent 55%),
+    linear-gradient(180deg,var(--navy) 0%, var(--navy-2) 100%);
+  color:#eef3f8;
+  padding:52px 24px 40px;
+  position:relative;
+  overflow:hidden;
+  border-bottom:3px solid var(--amber);
+}
+.hero::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 64px);
+  pointer-events:none;
+}
+.hero-inner{max-width:760px; margin:0 auto; position:relative;}
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  letter-spacing:0.04em;
+  color:var(--amber);
+  margin:0 0 14px;
+}
+.hero h1{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:800;
+  font-size:clamp(34px,7vw,58px);
+  line-height:1.02;
+  margin:0 0 18px;
+  letter-spacing:-0.01em;
+}
+.route-strip{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;
+  color:#c8d6e4;
+  border-top:1px solid rgba(255,255,255,0.15);
+  border-bottom:1px solid rgba(255,255,255,0.15);
+  padding:14px 0;
+  margin-top:20px;
+}
+.route-strip b{color:#fff; font-weight:700;}
+.route-strip .sep{color:var(--amber);}
+.hero-sub{color:#a9bacc; font-size:15px; margin-top:14px; max-width:56ch;}
+
+/* ---------- day tabs ---------- */
+.tabs{
+  position:sticky; top:0; z-index:50;
+  background:var(--navy);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.tabbar{
+  max-width:760px; margin:0 auto;
+  display:flex;
+}
+.tabbar label{
+  flex:1;
+  text-align:center;
+  padding:16px 8px 13px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;
+  color:#8fa3ba;
+  cursor:pointer;
+  border-bottom:3px solid transparent;
+  user-select:none;
+  transition:color .15s ease;
+}
+.tabbar label .d{display:block; font-size:11px; color:#5f7489; margin-top:2px; letter-spacing:.03em;}
+.tabbar label:hover{color:#d7e2ec;}
+
+#day-fr:checked ~ .tabs label[for="day-fr"],
+#day-sa:checked ~ .tabs label[for="day-sa"],
+#day-so:checked ~ .tabs label[for="day-so"]{
+  color:#fff;
+  border-bottom-color:var(--amber);
+}
+
+/* ---------- main / panels ---------- */
+main{max-width:760px; margin:0 auto; padding:36px 20px 20px;}
+.day{display:none;}
+#day-fr:checked ~ main #panel-fr,
+#day-sa:checked ~ main #panel-sa,
+#day-so:checked ~ main #panel-so{display:block;}
+
+.day-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--amber-deep);
+  letter-spacing:.04em;
+  margin:0 0 4px;
+}
+.day-headline{
+  font-size:26px;
+  font-weight:700;
+  margin:0 0 28px;
+  color:var(--navy);
+}
+
+/* ---------- timeline ---------- */
+.timeline{
+  position:relative;
+  padding-left:74px;
+}
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:52px; top:6px; bottom:6px;
+  width:2px;
+  background:var(--line);
+}
+.stop{
+  position:relative;
+  margin-bottom:26px;
+}
+.stop .time{
+  position:absolute;
+  left:-74px; top:1px;
+  width:52px;
+  text-align:right;
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;
+  font-size:14px;
+  color:var(--navy);
+}
+.stop::before{
+  content:"";
+  position:absolute;
+  left:-27px; top:6px;
+  width:9px; height:9px;
+  border-radius:50%;
+  background:var(--amber);
+  border:2px solid var(--navy);
+}
+.stop .head{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:4px;
+}
+.stop h3{
+  font-size:16.5px;
+  margin:0;
+  font-weight:700;
+  color:var(--navy);
+}
+.tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  font-weight:700;
+  padding:2px 7px;
+  border-radius:3px;
+  color:#fff;
+  white-space:nowrap;
+}
+.tag-ice{background:var(--db-red);}
+.tag-sbahn{background:var(--sbahn-green);}
+.tag-ubahn{background:var(--ubahn-violet);}
+.tag-bus{background:var(--bus-plum);}
+.tag-fuss{background:var(--walk-grey);}
+.tag-frei{background:var(--amber-deep);}
+
+.stop p{margin:0; color:var(--ink-soft); font-size:14.5px; max-width:58ch;}
+
+/* highlighted stop: hotel / restaurant / activity */
+.stop.feature{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-left:3px solid var(--amber);
+  border-radius:6px;
+  padding:14px 16px;
+  margin-left:-2px;
+}
+.stop.feature .time{top:15px;}
+.stop.feature::before{top:20px;}
+
+/* ---------- free-time / options block ---------- */
+.freeblock{
+  margin:6px 0 34px 0;
+  padding-left:74px;
+}
+.freeblock .flabel{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  font-weight:700;
+  color:var(--amber-deep);
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.freeblock .flabel::before{
+  content:"";
+  width:9px; height:9px;
+  border-radius:50%;
+  background:transparent;
+  border:2px dashed var(--amber-deep);
+  margin-left:-78px;
+  flex-shrink:0;
+}
+.options{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:12px;
+}
+.ticket{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:2px;
+  padding:14px 16px 16px;
+  position:relative;
+}
+.ticket::before,.ticket::after{
+  content:"";
+  position:absolute;
+  top:calc(50% - 6px);
+  width:12px; height:12px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:50%;
+}
+.ticket::before{left:-7px;}
+.ticket::after{right:-7px;}
+.ticket .opt-no{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--amber-deep);
+  font-weight:700;
+  margin-bottom:6px;
+}
+.ticket h4{margin:0 0 6px; font-size:15px; color:var(--navy);}
+.ticket p{margin:0 0 6px; font-size:13.5px; color:var(--ink-soft);}
+.ticket .route{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--navy);
+  border-top:1px dashed var(--line);
+  padding-top:8px;
+  margin-top:8px;
+}
+.ticket.muted{opacity:.72;}
+.ticket ul{margin:6px 0 0; padding-left:18px; font-size:13.5px; color:var(--ink-soft);}
+.ticket ul li{margin-bottom:2px;}
+
+/* ---------- info panel ---------- */
+.infobar{
+  max-width:760px; margin:0 auto; padding:0 20px 8px;
+}
+.infogrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:10px;
+  margin:18px 0 6px;
+}
+.infocard{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:13px 15px;
+}
+.infocard .k{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  color:var(--amber-deep);
+  letter-spacing:.03em;
+  margin-bottom:4px;
+}
+.infocard .v{font-size:14px; color:var(--navy); font-weight:600;}
+.infocard .v small{display:block; font-weight:400; color:var(--ink-soft); font-size:12.5px; margin-top:2px;}
+
+footer{
+  text-align:center;
+  padding:40px 20px 50px;
+  color:var(--ink-soft);
+  font-size:13.5px;
+}
+footer .signoff{
+  font-family:'JetBrains Mono',monospace;
+  color:var(--navy);
+  font-weight:700;
+  font-size:15px;
+  margin-top:6px;
+}
+
+@media (max-width:480px){
+  .timeline{padding-left:60px;}
+  .timeline::before{left:40px;}
+  .stop .time{left:-60px; width:40px; font-size:12.5px;}
+  .stop::before{left:-15px;}
+  .stop.feature::before{left:-15px;}
+  .freeblock{padding-left:60px;}
+  .freeblock .flabel::before{margin-left:-64px;}
+  .tabbar label{font-size:12.5px; padding:14px 4px 11px;}
+}
+</style>
+</head>
+<body>
+
+<input type="radio" name="day" id="day-fr" class="day-switch" checked>
+<input type="radio" name="day" id="day-sa" class="day-switch">
+<input type="radio" name="day" id="day-so" class="day-switch">
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">GRUPPENREISE · OT-TOUR 2026</p>
+    <h1>Berlin.</h1>
+    <p class="hero-sub">Drei Tage Bundestag, Tempelhof, Museumsinsel und alles dazwischen — von Kleve und Duisburg direkt ins Herz der Hauptstadt.</p>
+    <div class="route-strip">
+      <b>Duisburg Hbf</b><span class="sep">→</span><b>Berlin Hbf</b><span class="sep">·</span>ICE 845<span class="sep">·</span>Fr 08:08–12:12<span class="sep">·</span>18.–20.09.2026
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="tabbar">
+    <label for="day-fr">Freitag<span class="d">18.09 · Anreise &amp; Tempelhof</span></label>
+    <label for="day-sa">Samstag<span class="d">19.09 · Bundestag &amp; Mitte</span></label>
+    <label for="day-so">Sonntag<span class="d">20.09 · Rückreise</span></label>
+  </div>
+</nav>
+
+<div class="infobar">
+  <div class="infogrid">
+    <div class="infocard"><div class="k">HOTEL</div><div class="v">Motel One Upper West<small>Kantstr. 163–165, zwischen Ku'damm und Zoo</small></div></div>
+    <div class="infocard"><div class="k">TREFFPUNKTE FR</div><div class="v">Kleve, Kalkar, Goch<small>6:30 Uhr, privater Fahrdienst · Fahrgemeinschaften vorher absprechen</small></div></div>
+    <div class="infocard"><div class="k">RÜCKREISE SO</div><div class="v">ICE 546 ab 14:47<small>Ankunft Duisburg 18:50, Abholung privat</small></div></div>
+  </div>
+</div>
+
+<main>
+
+  <!-- ============ FREITAG ============ -->
+  <section class="day" id="panel-fr">
+    <p class="day-title">FREITAG 18.09.</p>
+    <h2 class="day-headline">Anreise Tempelhof</h2>
+
+    <div class="timeline">
+
+      <div class="stop">
+        <span class="time">6:30</span>
+        <div class="head"><h3>Treffpunkte Kleve, Kalkar, Goch</h3><span class="tag tag-fuss">PKW</span></div>
+        <p>Privater Fahrdienst bis Duisburg Hbf. Fahrzeit morgens ca. 60–75 Min. ab Kleve. Fahrgemeinschaften bitte vorab absprechen.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">8:08</span>
+        <div class="head"><h3>Abfahrt Duisburg Hbf, Gleis 12</h3><span class="tag tag-ice">ICE 845</span></div>
+        <p>Nach Berlin Hbf, Ankunft 12:12 Gleis 3. Fahrtzeit 4 Std, 7 Haltestellen. Heiß-Getränke aus dem Bordbistro.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">12:37</span>
+        <div class="head"><h3>Abfahrt S7 Richtung Potsdam</h3><span class="tag tag-sbahn">S7</span></div>
+        <p>Bahnsteig 16, Fahrtzeit 6 Min bis Zoologischer Garten, 3 Stationen. S-Bahnen im 5-Minuten-Takt (S3, S5, S7).</p>
+      </div>
+
+      <div class="stop feature">
+        <span class="time">12:50</span>
+        <div class="head"><h3>Ankunft im Hotel</h3></div>
+        <p><b>Motel One Upper West</b> — zwischen Ku'damm und Zoo ragt das neue Design-Hotel in den Berliner Himmel.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">13:30</span>
+        <div class="head"><h3>Treffpunkt Terrasse, 10. Stock</h3></div>
+        <p>Auf der Terrasse im 10. Stock ein einmaliger Blick über Berlin — und das nächste Ziel gleich im Blick.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">14:20</span>
+        <div class="head"><h3>Treffpunkt vor dem Hotel</h3><span class="tag tag-fuss">2 Min zu Fuß</span></div>
+        <p>Fußweg zur Haltestelle, Eingang T.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">14:34</span>
+        <div class="head"><h3>Abfahrt Richtung Pankow</h3><span class="tag tag-ubahn">U2</span></div>
+        <p>Gleis 2, 8 Haltestellen. Umsteigen an Berlin Stadtmitte in die U6, Gleis 1.</p>
+      </div>
+
+      <div class="stop feature">
+        <span class="time">15:07</span>
+        <div class="head"><h3>Platz der Luftbrücke</h3></div>
+        <p>5 Gehminuten zum Treffpunkt der Führung: <b>Besucher-Zentrum CHECK-IN</b> direkt neben dem Haupteingang des Flughafengebäudes. Private Gruppenführung für OT · 258.</p>
+      </div>
+
+      <div class="stop feature">
+        <span class="time">15:15</span>
+        <div class="head"><h3>Mythos Tempelhof</h3><span class="tag tag-frei">Führung · 2 Std</span></div>
+        <p>Der denkmalgeschützte Flughafen Tempelhof beeindruckt durch seine monumentale Architektur und spiegelt die wechselvolle Geschichte Berlins wider. Der Rundgang führt von der ehemaligen Abfertigungshalle über die von den US-Amerikanern genutzten Bereiche bis zu den Transitgängen mit Blick auf das heutige Tempelhofer Feld — Europas größtes Baudenkmal.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">17:15</span>
+        <div class="head"><h3>Ende der Tour · Rückkehr nach Charlottenburg</h3></div>
+      </div>
+
+      <div class="stop">
+        <span class="time">17:27</span>
+        <div class="head"><h3>Abfahrt zum Motel One</h3><span class="tag tag-ubahn">U6 → U2</span></div>
+        <p>U6 ab Kurt-Schumacher-Platz, Gleis 2, bis Friedrichstraße. Umsteigen in die U2 Richtung Ruhleben, Gleis 1, bis Zoologischer Garten. 4 Haltestellen. Ankunft 17:52, Ausgang R.</p>
+      </div>
+
+    </div>
+
+    <div class="freeblock">
+      <div class="flabel">ZEIT ZUR FREIEN VERFÜGUNG BIS 19:15 — ausruhen, chillen, gesellig beisammen oder erkunden &amp; spazieren</div>
+      <div class="options">
+        <div class="ticket">
+          <div class="opt-no">OPTION 1</div>
+          <h4>Ausruhen im Hotel</h4>
+          <ul><li>Zimmer</li><li>Dachterrasse, 10. Stock</li><li>Hotelbar, 10. Stock</li></ul>
+        </div>
+        <div class="ticket">
+          <div class="opt-no">OPTION 2</div>
+          <h4>Bikini Berlin</h4>
+          <p>Direkt an der Haltestelle. Das legendäre Bikinihaus mit 200 m Gesamtlänge war Namensgeber des Ensembles.</p>
+          <p>Dachterrasse im 2. OG sowie eine 7.000 m² große, frei zugängliche, begrünte Dachterrasse nach Vorbild des New Yorker Highline Park mit Blick über den Zoo. Dort auch das Café Zoo.</p>
+        </div>
+        <div class="ticket">
+          <div class="opt-no">OPTION 3</div>
+          <h4>KaDeWe, 6. Etage</h4>
+          <p>1 Haltestelle vor dem Zoo oder 10 Gehminuten zu Fuß über den Ku'damm. Zugang an der linken Seite. „Die Sechste" — ein Schlaraffenland für Feinschmecker.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="stop"><span class="time">19:15</span><div class="head"><h3>Treffpunkt vorm Hotel</h3></div></div>
+
+      <div class="stop feature">
+        <span class="time">19:30</span>
+        <div class="head"><h3>Abendessen im Luardi</h3></div>
+        <p>10 Gehminuten vom Hotel entfernt, Nr. 85 von 9553 Lokalen in Berlin. „Cucina della Mamma" — ehrliche, hausgemachte Gerichte aus frischen Zutaten der Region. Hausgemachte Pasta, Pizza aus dem Steinofen, italienische Klassiker.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">22:00</span>
+        <div class="head"><h3>Rückkehr zum Hotel</h3></div>
+        <p><b>Monkey Bar</b> — 10. Stock des 25hours Hotel Bikini Berlin, gegenüber dem Hotel, 5 Gehminuten. Blick auf Stadt, Hotel und das Affenhaus des Zoos. Wer es ruhiger mag: Abschluss auf der Dachterrasse oder Hotelbar des Motel One, 10. Stock.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SAMSTAG ============ -->
+  <section class="day" id="panel-sa">
+    <p class="day-title">SAMSTAG 19.09.</p>
+    <h2 class="day-headline">Bundestag, Stadtrundgang, Neue Nationalgalerie</h2>
+
+    <div class="timeline">
+      <div class="stop">
+        <span class="time">10:00</span>
+        <div class="head"><h3>Treffpunkt vor Hotel · Besuch Bundestag</h3></div>
+        <p>S-Bahn-Haltestelle Zoologischer Garten, Linie 100 bis Reichstag.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">10:11</span>
+        <div class="head"><h3>Abfahrt bis Reichstag</h3><span class="tag tag-bus">Bus 100</span></div>
+        <p>Ankunft 10:28, Fahrzeit 17 Min. Besucherkontrolle vor Eingang Reichstag.</p>
+      </div>
+
+      <div class="stop feature">
+        <span class="time">11:00</span>
+        <div class="head"><h3>Geführte Tour Reichstagsgebäude</h3><span class="tag tag-frei">ca. 1 Std</span></div>
+        <p>An exponierten Standorten erfahren wir Details zur Geschichte des Bauwerks und zur Entwicklung des Parlamentarismus in Deutschland. Auf der Besuchertribüne des Plenarsaals ein 45-minütiger Vortrag, anschließend individueller Kuppelbesuch. Besuch ohne Regierungsviertel.</p>
+      </div>
+
+      <div class="stop feature">
+        <span class="time">12:30</span>
+        <div class="head"><h3>Kompakt geführter Stadtrundgang Berlin Mitte</h3><span class="tag tag-frei">3,2 km</span></div>
+        <p>Dauer ca. 1,0–1,5 Std, nach 40 Min Pause im Brauhaus Friedrichstraße. Stationen: Brandenburger Tor, Boulevard Unter den Linden, Friedrichstraße, Checkpoint Charlie und Trabi World, Topografie des Terrors. Epochen von der Neuzeit über den Kalten Krieg bis zur Nazi-, Kaiser- und Preußenzeit.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">13:15</span>
+        <div class="head"><h3>Pause im Maximilians</h3></div>
+        <p>Friedrichstraße 185.</p>
+      </div>
+
+      <div class="stop feature">
+        <span class="time">14:15</span>
+        <div class="head"><h3>2. Hälfte Stadtrundgang</h3></div>
+        <p>Bahnhof Friedrichstraße (zentraler Verkehrsknotenpunkt), Tränenpalast (ehemalige Westhalle der Grenzabfertigung), Checkpoint Charlie, Friedrichstadt-Palast. Vorbei an der Ausstellung „The Wall" über die Zimmerstraße zur Dauerausstellung <b>Topografie des Terrors</b> — mit Geländerundgang entlang der freigelegten Kellermauerreste. Wer die Ausstellung kennt, kann alternativ mit dem Fesselballon auf 150 m Höhe schweben (bis 20 Personen, 15 Min Panorama-Blick).</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">15:12</span>
+        <div class="head"><h3>Abfahrt zur Neuen Nationalgalerie</h3><span class="tag tag-bus">M29</span></div>
+        <p>Fahrtzeit 11 Min.</p>
+      </div>
+
+      <div class="stop feature">
+        <span class="time">15:30</span>
+        <div class="head"><h3>Führung Neue Nationalgalerie</h3></div>
+      </div>
+
+      <div class="stop">
+        <span class="time">16:30</span>
+        <div class="head"><h3>Ende der Tour</h3><span class="tag tag-fuss">10 Min zu Fuß</span></div>
+        <p>Nach dem Ausstellungsbesuch laufen wir zum Potsdamer Platz.</p>
+      </div>
+    </div>
+
+    <div class="freeblock">
+      <div class="flabel">ZEIT ZUR FREIEN VERFÜGUNG BIS 19:15 — ausruhen, einkehren oder entdecken</div>
+      <div class="options">
+        <div class="ticket">
+          <div class="opt-no">OPTION 1</div>
+          <h4>Zum Hotel</h4>
+          <div class="route">16:49 Potsdamer Platz → 17:02 Zoologischer Garten<br>U2 Ruhleben, Gleis 1, Ausgang R</div>
+          <p style="margin-top:8px;">Später: 19:03 ab Zoologischer Garten (U2 Pankow, Gleis 2, Eingang T) bis Berlin Mitte, 8 Stationen. Ankunft 19:16, Ausgang B, 5 Min Fußweg zum Restaurant Gendarmenmarkt.</p>
+        </div>
+        <div class="ticket muted">
+          <div class="opt-no">OPTION 2 · nicht zu empfehlen</div>
+          <h4>Potsdamer Platz</h4>
+          <p>Berlins Touristenzentrum: Fast Food, Café The Barn, Paulaner Biergarten, bei Regen das Linden Bräu im Sony-Center. Alternativ: schnellster Aufzug Europas zum Panorama-Café in der 24. Etage, oder das Holocaust-Mahnmal mit 2.711 Beton-Stelen (kostenfreie Ausstellung).</p>
+        </div>
+        <div class="ticket">
+          <div class="opt-no">OPTION 3</div>
+          <h4>Potsdamer Platz → Gendarmenmarkt</h4>
+          <div class="route">16:48 ab Potsdamer Platz · U2 Pankow, Gleis 2, Eingang C<br>bis Berlin Mitte, 2 Stationen · 350 m Fußweg, ca. 5 Min</div>
+          <p style="margin-top:8px;">Ca. 150 Min frei am Gendarmenmarkt:</p>
+          <ul><li>Weinbar „glasweise Wein"</li><li>Rausch Schokoladenhaus, Hugo + Notte Café</li><li>Bell Boy Cocktailbar</li><li>Augustiner Brauhaus</li></ul>
+        </div>
+        <div class="ticket">
+          <div class="opt-no">OPTION 4</div>
+          <h4>Museumsinsel</h4>
+          <div class="route">16:48 ab Potsdamer Platz · Bus M200 bis Fischerinsel (an 16:59)<br>7 Min zu Fuß zur Museumsinsel</div>
+          <p style="margin-top:8px;">Ca. 120 Min frei. Rückkehr zu Fuß zum Gendarmenmarkt, ca. 20 Gehminuten.</p>
+        </div>
+        <div class="ticket">
+          <div class="opt-no">OPTION 5</div>
+          <h4>RBB-Dachlounge, Masurenallee</h4>
+          <div class="route">16:51 ab Potsdamer Platz · U2 Ruhleben, Gleis 1, Eingang C<br>bis Theodor-Heuss-Platz, 12 Stationen · 500 m Fußweg</div>
+          <p style="margin-top:8px;">17:18 Ankunft RBB-Masurenallee. Bei schönem Wetter die Rooftop-Bar in der 14. Etage, Ausblick bei einem Glas Wein oder Sekt.</p>
+          <div class="route">18:41 zurück · U2 Pankow, Gleis 2, bis Stadtmitte, 14 Stationen, Ausgang B<br>Ankunft 19:14 Gendarmenmarkt · ca. 90 Min frei</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="stop feature">
+        <span class="time">19:30</span>
+        <div class="head"><h3>Im Lutter &amp; Wegner am Gendarmenmarkt</h3></div>
+        <p>Gehobene bürgerliche deutsche Küche mit österreichischem Einfluss, traditionell und von der Moderne inspiriert. Essen à la carte, Weine selektiert.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">22:00</span>
+        <div class="head"><h3>Rückkehr zum Motel One</h3></div>
+        <p>Abschluss auf der Dachterrasse im 10. Stock. Weitere Möglichkeiten in der Nähe: Clubs 808, Pearl oder Maxim · Live-Musik bei Quasimodo (Beat), Hat Bar (Jazz), A-Trane (Jazz) · KaDeWe „die 6te", Paris Bar, Lang Bar im Waldorf Astoria · Kiez-Kneipe Diener Tattersall.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SONNTAG ============ -->
+  <section class="day" id="panel-so">
+    <p class="day-title">SONNTAG 20.09.</p>
+    <h2 class="day-headline">Humboldtforum, Rückreise</h2>
+
+    <div class="timeline">
+      <div class="stop">
+        <span class="time">10:15</span>
+        <div class="head"><h3>Treffen vor dem Hotel</h3></div>
+      </div>
+
+      <div class="stop">
+        <span class="time">10:28</span>
+        <div class="head"><h3>Abfahrt zum Humboldtforum</h3><span class="tag tag-ubahn">U2</span></div>
+        <p>Ab Zoologischer Garten, Eingang T, U2 Pankow, Gleis 2, 9 Stationen. Ausstieg 10:43 Hausvogteiplatz, 12 Gehminuten zum Schloßplatz.</p>
+      </div>
+
+      <div class="stop feature">
+        <span class="time">11:00</span>
+        <div class="head"><h3>Besichtigung Humboldtforum</h3><span class="tag tag-frei">1 Std</span></div>
+        <p>Mehr als ein Museum.</p>
+      </div>
+
+      <div class="stop">
+        <span class="time">12:00</span>
+        <div class="head"><h3>Ende der Tour</h3></div>
+      </div>
+    </div>
+
+    <div class="freeblock">
+      <div class="flabel">ZEIT ZUR FREIEN VERFÜGUNG BIS 13:15</div>
+    </div>
+
+    <div class="timeline">
+      <div class="stop">
+        <span class="time">13:11</span>
+        <div class="head"><h3>Rückfahrt mit der U2 zum Hotel</h3><span class="tag tag-ubahn">U2</span></div>
+      </div>
+
+      <div class="stop">
+        <span class="time">13:39</span>
+        <div class="head"><h3>Ankunft im Motel One Upper West</h3></div>
+      </div>
+
+      <div class="stop">
+        <span class="time">14:09</span>
+        <div class="head"><h3>Abfahrt Bf Zoo Richtung Flughafen BER</h3><span class="tag tag-sbahn">S-Bahn</span></div>
+        <p>Bahnsteig 5, 3 Stationen. Ankunft Hbf 14:15.</p>
+      </div>
+
+      <div class="stop feature">
+        <span class="time">14:47</span>
+        <div class="head"><h3>Abfahrt nach Duisburg</h3><span class="tag tag-ice">ICE 546</span></div>
+        <p>Ankunft Duisburg 18:50. Abholung durch privaten Fahrdienst.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>Ende OT-Tour 2026</div>
+  <div class="signoff">Euer Wolfram</div>
+</footer>
+
+</body>
+</html>
