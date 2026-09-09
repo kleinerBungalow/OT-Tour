@@ -40,10 +40,11 @@ body > input.day-switch{ display:none; }
 /* ---------- hero ---------- */
 .hero{
   background:
-    radial-gradient(ellipse at 15% 0%, rgba(255,177,0,0.12), transparent 55%),
+    linear-gradient(180deg, rgba(15,32,56,0.55) 0%, rgba(15,32,56,0.88) 62%, var(--navy-2) 100%),
+    url('https://commons.wikimedia.org/wiki/Special:FilePath/Berlin_Mitte_June_2023_01.jpg') center 62%/cover no-repeat,
     linear-gradient(180deg,var(--navy) 0%, var(--navy-2) 100%);
   color:#eef3f8;
-  padding:52px 24px 40px;
+  padding:64px 24px 36px;
   position:relative;
   overflow:hidden;
   border-bottom:3px solid var(--amber);
@@ -55,6 +56,13 @@ body > input.day-switch{ display:none; }
   pointer-events:none;
 }
 .hero-inner{max-width:760px; margin:0 auto; position:relative;}
+.photo-credit{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  color:rgba(238,243,248,0.55);
+  margin-top:22px;
+}
+.photo-credit a{color:rgba(238,243,248,0.7);}
 .hero-eyebrow{
   font-family:'JetBrains Mono',monospace;
   font-size:13px;
@@ -205,6 +213,8 @@ main{max-width:760px; margin:0 auto; padding:36px 20px 20px;}
 .tag-frei{background:var(--amber-deep);}
 
 .stop p{margin:0; color:var(--ink-soft); font-size:14.5px; max-width:58ch;}
+.stop p a, .ticket p a, .stop h3 a, .ticket h4 a{color:var(--navy); font-weight:600; text-decoration:underline; text-decoration-color:var(--amber); text-underline-offset:2px;}
+.stop p a:hover, .ticket p a:hover, .stop h3 a:hover, .ticket h4 a:hover{color:var(--amber-deep);}
 
 /* highlighted stop: hotel / restaurant / activity */
 .stop.feature{
@@ -290,11 +300,18 @@ main{max-width:760px; margin:0 auto; padding:36px 20px 20px;}
 .infobar{
   max-width:760px; margin:0 auto; padding:0 20px 8px;
 }
+.infobar-title{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:.04em;
+  color:var(--amber-deep);
+  margin:20px 0 0;
+}
 .infogrid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:10px;
-  margin:18px 0 6px;
+  margin:12px 0 6px;
 }
 .infocard{
   background:var(--card);
@@ -326,15 +343,34 @@ footer .signoff{
   margin-top:6px;
 }
 
-@media (max-width:480px){
-  .timeline{padding-left:60px;}
-  .timeline::before{left:40px;}
-  .stop .time{left:-60px; width:40px; font-size:12.5px;}
-  .stop::before{left:-15px;}
-  .stop.feature::before{left:-15px;}
-  .freeblock{padding-left:60px;}
-  .freeblock .flabel::before{margin-left:-64px;}
-  .tabbar label{font-size:12.5px; padding:14px 4px 11px;}
+@media (max-width:600px){
+  .hero{padding:36px 16px 28px;}
+  .hero h1{font-size:clamp(30px,11vw,44px);}
+  .hero-sub{font-size:14px;}
+  .route-strip{font-size:12px; gap:6px;}
+  main{padding:28px 14px 14px;}
+  .infobar{padding:0 14px 8px;}
+  .infogrid{grid-template-columns:1fr;}
+  .day-headline{font-size:21px;}
+
+  .timeline{padding-left:52px;}
+  .timeline::before{left:34px;}
+  .stop .time{left:-52px; width:34px; font-size:11.5px;}
+  .stop::before{left:-13px; top:5px;}
+  .stop.feature::before{left:-13px;}
+  .stop h3{font-size:15px;}
+  .stop p{font-size:13.5px;}
+  .freeblock{padding-left:52px;}
+  .freeblock .flabel{font-size:11px;}
+  .freeblock .flabel::before{margin-left:-56px;}
+  .options{grid-template-columns:1fr;}
+
+  .tabbar label{font-size:11.5px; padding:12px 4px 10px; line-height:1.3;}
+  .tabbar label .d{font-size:9.5px; margin-top:1px;}
+}
+
+@media (max-width:360px){
+  .tabbar label .d{display:none;}
 }
 </style>
 </head>
@@ -348,10 +384,11 @@ footer .signoff{
   <div class="hero-inner">
     <p class="hero-eyebrow">GRUPPENREISE · OT-TOUR 2026</p>
     <h1>Berlin.</h1>
-    <p class="hero-sub">Drei Tage Bundestag, Tempelhof, Museumsinsel und alles dazwischen — von Kleve und Duisburg direkt ins Herz der Hauptstadt.</p>
+    <p class="hero-sub">Drei Tage Bundestag, Tempelhof und Museumsinsel — von Kleve direkt ins Herz der Hauptstadt.</p>
     <div class="route-strip">
       <b>Duisburg Hbf</b><span class="sep">→</span><b>Berlin Hbf</b><span class="sep">·</span>ICE 845<span class="sep">·</span>Fr 08:08–12:12<span class="sep">·</span>18.–20.09.2026
     </div>
+    <p class="photo-credit">Foto: Berlin-Mitte, Arild Vågen · <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, Wikimedia Commons</p>
   </div>
 </header>
 
@@ -362,14 +399,6 @@ footer .signoff{
     <label for="day-so">Sonntag<span class="d">20.09 · Rückreise</span></label>
   </div>
 </nav>
-
-<div class="infobar">
-  <div class="infogrid">
-    <div class="infocard"><div class="k">HOTEL</div><div class="v">Motel One Upper West<small>Kantstr. 163–165, zwischen Ku'damm und Zoo</small></div></div>
-    <div class="infocard"><div class="k">TREFFPUNKTE FR</div><div class="v">Kleve, Kalkar, Goch<small>6:30 Uhr, privater Fahrdienst · Fahrgemeinschaften vorher absprechen</small></div></div>
-    <div class="infocard"><div class="k">RÜCKREISE SO</div><div class="v">ICE 546 ab 14:47<small>Ankunft Duisburg 18:50, Abholung privat</small></div></div>
-  </div>
-</div>
 
 <main>
 
@@ -401,7 +430,7 @@ footer .signoff{
       <div class="stop feature">
         <span class="time">12:50</span>
         <div class="head"><h3>Ankunft im Hotel</h3></div>
-        <p><b>Motel One Upper West</b> — zwischen Ku'damm und Zoo ragt das neue Design-Hotel in den Berliner Himmel.</p>
+        <p><a href="https://www.motel-one.com/de/hotels/berlin/hotel-berlin-upper-west/" target="_blank" rel="noopener"><b>Motel One Upper West</b></a> — zwischen Ku'damm und Zoo ragt das neue Design-Hotel in den Berliner Himmel.</p>
       </div>
 
       <div class="stop">
@@ -457,7 +486,7 @@ footer .signoff{
         </div>
         <div class="ticket">
           <div class="opt-no">OPTION 2</div>
-          <h4>Bikini Berlin</h4>
+          <h4><a href="https://www.bikiniberlin.de/" target="_blank" rel="noopener">Bikini Berlin</a></h4>
           <p>Direkt an der Haltestelle. Das legendäre Bikinihaus mit 200 m Gesamtlänge war Namensgeber des Ensembles.</p>
           <p>Dachterrasse im 2. OG sowie eine 7.000 m² große, frei zugängliche, begrünte Dachterrasse nach Vorbild des New Yorker Highline Park mit Blick über den Zoo. Dort auch das Café Zoo.</p>
         </div>
@@ -474,7 +503,7 @@ footer .signoff{
 
       <div class="stop feature">
         <span class="time">19:30</span>
-        <div class="head"><h3>Abendessen im Luardi</h3></div>
+        <div class="head"><h3>Abendessen im <a href="https://luardi.de/" target="_blank" rel="noopener">Luardi</a></h3></div>
         <p>10 Gehminuten vom Hotel entfernt, Nr. 85 von 9553 Lokalen in Berlin. „Cucina della Mamma" — ehrliche, hausgemachte Gerichte aus frischen Zutaten der Region. Hausgemachte Pasta, Pizza aus dem Steinofen, italienische Klassiker.</p>
       </div>
 
@@ -512,8 +541,8 @@ footer .signoff{
 
       <div class="stop feature">
         <span class="time">12:30</span>
-        <div class="head"><h3>Kompakt geführter Stadtrundgang Berlin Mitte</h3><span class="tag tag-frei">3,2 km</span></div>
-        <p>Dauer ca. 1,0–1,5 Std, nach 40 Min Pause im Brauhaus Friedrichstraße. Stationen: Brandenburger Tor, Boulevard Unter den Linden, Friedrichstraße, Checkpoint Charlie und Trabi World, Topografie des Terrors. Epochen von der Neuzeit über den Kalten Krieg bis zur Nazi-, Kaiser- und Preußenzeit.</p>
+        <div class="head"><h3>Kompakt geführter Stadtrundgang Berlin Mitte</h3><span class="tag tag-frei">45 Min</span></div>
+        <p>Distanz 3,2 km. Stationen: Brandenburger Tor, Boulevard Unter den Linden, Friedrichstraße, Checkpoint Charlie und Trabi World, Topografie des Terrors. Epochen von der Neuzeit über den Kalten Krieg bis zur Nazi-, Kaiser- und Preußenzeit. Danach 40 Min Pause im Brauhaus Friedrichstraße.</p>
       </div>
 
       <div class="stop">
@@ -524,7 +553,7 @@ footer .signoff{
 
       <div class="stop feature">
         <span class="time">14:15</span>
-        <div class="head"><h3>2. Hälfte Stadtrundgang</h3></div>
+        <div class="head"><h3>2. Hälfte Stadtrundgang</h3><span class="tag tag-frei">45 Min</span></div>
         <p>Bahnhof Friedrichstraße (zentraler Verkehrsknotenpunkt), Tränenpalast (ehemalige Westhalle der Grenzabfertigung), Checkpoint Charlie, Friedrichstadt-Palast. Vorbei an der Ausstellung „The Wall" über die Zimmerstraße zur Dauerausstellung <b>Topografie des Terrors</b> — mit Geländerundgang entlang der freigelegten Kellermauerreste. Wer die Ausstellung kennt, kann alternativ mit dem Fesselballon auf 150 m Höhe schweben (bis 20 Personen, 15 Min Panorama-Blick).</p>
       </div>
 
@@ -562,7 +591,7 @@ footer .signoff{
         </div>
         <div class="ticket">
           <div class="opt-no">OPTION 3</div>
-          <h4>Potsdamer Platz → Gendarmenmarkt</h4>
+          <h4>Gendarmenmarkt</h4>
           <div class="route">16:48 ab Potsdamer Platz · U2 Pankow, Gleis 2, Eingang C<br>bis Berlin Mitte, 2 Stationen · 350 m Fußweg, ca. 5 Min</div>
           <p style="margin-top:8px;">Ca. 150 Min frei am Gendarmenmarkt:</p>
           <ul><li>Weinbar „glasweise Wein"</li><li>Rausch Schokoladenhaus, Hugo + Notte Café</li><li>Bell Boy Cocktailbar</li><li>Augustiner Brauhaus</li></ul>
@@ -586,7 +615,7 @@ footer .signoff{
     <div class="timeline">
       <div class="stop feature">
         <span class="time">19:30</span>
-        <div class="head"><h3>Im Lutter &amp; Wegner am Gendarmenmarkt</h3></div>
+        <div class="head"><h3>Im <a href="https://l-w-berlin.de/restaurant/" target="_blank" rel="noopener">Lutter &amp; Wegner am Gendarmenmarkt</a></h3></div>
         <p>Gehobene bürgerliche deutsche Küche mit österreichischem Einfluss, traditionell und von der Moderne inspiriert. Essen à la carte, Weine selektiert.</p>
       </div>
 
